@@ -1,54 +1,48 @@
 <html>
+    <body>
 
-<body>
-
-    <h1>Game Page</h1>
-    <h2><time>00:00:00</time></h2>
-
-    <a href="{% url 'index'%}"><button id="stop">stop</button></a>
-
-    <div class="hello">
-        <script>
-            var arr = {{ list }};
-            var tot = [];
-            var cou = 0;
-            for (var i = 0; i < 9; i++) {
-                var temp = [];
-                for (var j = 0; j < 9; j++) {
-                    temp.push(arr[cou]);
-                    cou++;
-                }
-                tot.push(temp);
-            }
-
-            document.write("<table>");
-            for (var i = 0; i < 9; i++) {
-                document.write("<tr>")
-                for (var j = 0; j < 9; j++) {
-                    if (tot[i][j] == 0) {
-                        document.write("<td> <input type='number'> </td>");
+        <h1>Game Page</h1>
+        <h2><time>00:00:00</time></h2>
+        <div class="hello">
+            <script>
+                var arr = {{ list }};
+                var tot = [];
+                var cou = 0;
+                for (var i = 0; i < 9; i++) {
+                    var temp = [];
+                    for (var j = 0; j < 9; j++) {
+                        temp.push(arr[cou]);
+                        cou++;
                     }
-                    else {
-                        document.write("<td>" + tot[i][j] + "</td>");
-                    }
+                    tot.push(temp);
                 }
-                document.write("</tr>")
-            }
-            document.write("</table>");
 
-        </script>
-    </div>
+                document.write("<table>");
+                for (var i = 0; i < 9; i++) {
+                    document.write("<tr>")
+                    for (var j = 0; j < 9; j++) {
+                        if (tot[i][j] == 0) {
+                            document.write("<td> <input type='number'> </td>");
+                        }
+                        else {
+                            document.write("<td>" + tot[i][j] + "</td>");
+                        }
+                    }
+                    document.write("</tr>")
+                }
+                document.write("</table>");
 
-
-
-</body>
-
+            </script>
+        </div>
+        <div class="reset">
+            <a  href="{% url 'index'%}"><button class="rainbow rainbow-3" id="stop">stop</button></a>
+        </div>
+    </body>
 </html>
 <style>
     body {
         background-color: wheat;
     }
-
 
     h1 {
         background-color: indigo;
@@ -96,6 +90,32 @@
     td {
         size: 5;
     }
+
+    .reset{
+        padding-left: 50%;
+    }
+    
+    .rainbow{
+        font-size: 25px;
+        background-color: #343A40;
+        border-radius: 4px;  
+        color: #fff;
+        cursor: pointer;
+        padding: 8px 16px;
+        
+        }
+
+    .rainbow-3:hover{
+        background-image: linear-gradient(to right, red, orange, yellow, green, blue, indigo, red);
+        animation:slidebg 2s linear infinite;
+        }
+
+    @keyframes slidebg {
+    to {
+        background-position:20vw;
+    }
+    }
+    
 </style>
 
 
