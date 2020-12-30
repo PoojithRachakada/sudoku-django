@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+
+<head>
+    <html lang="en" dir="ltr">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home Page</title>
+</head>
+
+<body>
+    <h1>Welcome to Sudoku Game</h1>
+    <div>
+        <div class="rules">
+            <a style="color:rgb(255, 208, 0);font-size:30px">The Rules of Sudoku:</a>
+            <p>The classic Sudoku game involves a grid of 81 squares. The grid is divided into nine blocks, each
+                containing nine squares.</p>
+            <p>The rules of the game are simple: each of the nine blocks has to contain all the numbers 1-9 within its
+                squares. Each number can only appear once in a row, column or box.</p>
+            <p>The difficulty lies in that each vertical nine-square column, or horizontal nine-square line across,
+                within the larger square, must also contain the numbers 1-9, without repetition or omission.</p>
+        </div>
+        <div class="btn">
+            <p style="color:lime;font-size:50px;">Choose Dificulty Level</p>
+            <a href="{% url 'easy' %}"><button class="button">Easy</button></a>
+            <a href="{% url 'medium' %}"><button class="button">Medium</button></a>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<style>
+    h1 {
+        text-align: center;
+        color: aqua;
+        font-size: 70px;
+
+    }
+
+    .rules {
+        border: darkred;
+        background-color: rgb(170, 192, 187);
+        height: 200px;
+        width: 50%;
+        float: left;
+        background-position: left;
+    }
+
+    .btn {
+        float: right;
+        width: 50%;
+        text-align: center;
+    }
+
+
+    body {
+        background-color: rgb(181, 172, 230);
+        background-position: center;
+    }
+
+
+
+    .button {
+        min-width: 300px;
+        min-height: 60px;
+        font-family: 'Nunito', sans-serif;
+        font-size: 22px;
+        text-transform: uppercase;
+        letter-spacing: 1.3px;
+        font-weight: 700;
+        color: #313133;
+        background: #4FD1C5;
+        background: linear-gradient(90deg, rgba(129, 230, 217, 1) 0%, rgba(79, 209, 197, 1) 100%);
+        border: none;
+        border-radius: 1000px;
+        box-shadow: 12px 12px 24px rgba(79, 209, 197, .64);
+        transition: all 0.3s ease-in-out 0s;
+        cursor: pointer;
+        outline: none;
+        position: relative;
+        padding: 10px;
+    }
+
+    button::before {
+        content: '';
+        border-radius: 1000px;
+        min-width: calc(300px + 12px);
+        min-height: calc(60px + 12px);
+        border: 6px solid #00FFCB;
+        box-shadow: 0 0 60px rgba(0, 255, 203, .64);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        transition: all .3s ease-in-out 0s;
+    }
+
+    .button:hover,
+    .button:focus {
+        color: #313133;
+        transform: translateY(-6px);
+    }
+
+    button:hover::before,
+    button:focus::before {
+        opacity: 1;
+    }
+
+    button::after {
+        content: '';
+        width: 30px;
+        height: 30px;
+        border-radius: 100%;
+        border: 6px solid #00FFCB;
+        position: absolute;
+        z-index: -1;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: ring 1.5s infinite;
+    }
+
+    button:hover::after,
+    button:focus::after {
+        animation: none;
+        display: none;
+    }
+
+    @keyframes ring {
+        0% {
+            width: 30px;
+            height: 30px;
+            opacity: 1;
+        }
+
+        100% {
+            width: 300px;
+            height: 300px;
+            opacity: 0;
+        }
+    }
+</style>
