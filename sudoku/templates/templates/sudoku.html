@@ -1,0 +1,256 @@
+<html>
+
+<body>
+
+    <h1>Game Page</h1>
+    <h2><time>00:00:00</time></h2>
+    <div class="hello">
+        <script>
+            var arr = {{ list }};
+
+            var tot = [];
+
+            var cou = 0;
+            for (var i = 0; i < 9; i++) {
+                var temp = [];
+                for (var j = 0; j < 9; j++) {
+                    temp.push(arr[cou]);
+                    cou++;
+                }
+                tot.push(temp);
+            }
+            document.write("<table>");
+            for (var i = 1; i < 10; i++) {
+                document.write("<tr>")
+                for (var j = 1; j < 10; j++) {
+                    if (tot[i - 1][j - 1] == 0) {
+
+                        var q = i.toString() + j.toString();
+                        document.write('<td> <input type="number" id="' + q + '"oninput="checker(' + q + ')"> </td>');
+
+                    }
+                    else {
+                        document.write("<td>" + tot[i - 1][j - 1] + "</td>");
+                    }
+                }
+                document.write("</tr>")
+            }
+            document.write("</table>");
+
+            function checkrow(x, y, data) {
+                for (var i = 0; i < 9; i++) {
+                    if (tot[i][y] == data) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+            function checkcol(x, y, data) {
+                for (var i = 0; i < 9; i++) {
+                    if (tot[x][i] == data) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+            function valid(data) {
+                if ((0 < data) && (data < 10)) {
+                    return true;
+                }
+                return false;
+            }
+
+            function checker(para) {
+                var data = document.getElementById(para).value;
+
+                var ind = parseInt(para);
+                var y = ind % 10;
+                ind /= 10;
+                ind = Math.floor(ind);
+                var x = ind;
+
+                y -= 1;
+                x -= 1
+
+                if (data == "") {
+                    document.getElementById(para).style.backgroundColor = "white";
+                    return;
+                }
+
+                if (valid(data)) {
+                    tot[x][y] = 0;
+                    if (checkrow(x, y, data) && checkcol(x, y, data)) {
+                        document.getElementById(para).style.backgroundColor = "#00e64d";
+                        tot[x][y] = data;
+                    }
+                    else {
+                        document.getElementById(para).style.backgroundColor = "#ff3333";
+                        console.log("wrong  answer")
+                    }
+
+                }
+                else {
+                    alert("This is not a valid input in the grid")
+                    document.getElementById(para).value = "";
+                    document.getElementById(para).style.backgroundColor = "white";
+                    console.log("invalid  answer")
+                }
+            }
+
+            function grab_selected() {
+                var tasks = "";
+                console.log(tot);
+                for (var i = 0; i < 9; i++) {
+                    for (var j = 0; j < 9; j++) {
+                        tasks += tot[i][j];
+                    }
+                }
+                tasks += '|'
+                tasks += hours + '|' + minutes + '|' + seconds;
+                document.getElementById("hello").value = tasks;
+                console.log(tasks);
+            }
+
+
+
+        </script>
+    </div>
+    <div class="reset">
+        <form action="getter" method="post">
+            {%csrf_token%}
+            <input type="text" style="visibility:hidden" name="array" id="hello">
+            <input class="rainbow rainbow-3" type="submit" name="" value="Submit" onclick="grab_selected()">
+        </form>
+    </div>
+
+</body>
+
+</html>
+<style>
+    body {
+        background-color: wheat;
+    }
+
+    h1 {
+        background-color: indigo;
+        text-align: center;
+        color: whitesmoke;
+    }
+
+    h2 {
+        text-align: center;
+    }
+
+
+    .hello {
+        left: 100px;
+        margin-right: auto;
+    }
+    table{
+        width:40%;
+        height:70%;
+    }
+    table,
+    tr,
+    td {
+        
+        left: 100px;
+        text-align: center;
+        border: 1px solid black;
+        size: 5;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    input[type=number] {
+        color:azure;
+        border: 0px solid;
+        height: 40px;
+        width: 65px;
+        text-align: center;
+        -moz-appearance: textfield;
+    }
+
+    td {
+        size: 5;
+    }
+
+    .reset {
+        padding-left: 35%;
+
+    }
+
+    .rainbow {
+        font-size: 25px;
+        background-color: #343A40;
+        border-radius: 4px;
+        color: #fff;
+        cursor: pointer;
+        padding: 8px 16px;
+
+    }
+
+    .rainbow-3:hover {
+        background-image: linear-gradient(to right, red, orange, yellow, green, blue, indigo, red);
+        animation: slidebg 2s linear infinite;
+    }
+
+    @keyframes slidebg {
+        to {
+            background-position: 20vw;
+        }
+    }
+</style>
+
+
+<script>
+    var h1 = document.getElementsByTagName('h2')[0],
+        start = document.getElementById('start'),
+        stop = document.getElementById('stop'),
+        clear = document.getElementById('clear'),
+        seconds = 0, minutes = 0, hours = 0,
+        t;
+
+    function add() {
+        seconds++;
+        if (seconds >= 60) {
+            seconds = 0;
+            minutes++;
+            if (minutes >= 60) {
+                minutes = 0;
+                hours++;
+            }
+        }
+
+        h1.textContent = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+
+        timer();
+    }
+    function timer() {
+        t = setTimeout(add, 1000);
+    }
+    timer();
+
+
+    /* Start button */
+    start.onclick = timer;
+
+    /* Stop button */
+    stop.onclick = function () {
+        clearTimeout(t);
+    }
+
+    /* Clear button */
+    clear.onclick = function () {
+        h1.textContent = "00:00:00";
+        seconds = 0; minutes = 0; hours = 0;
+    }
+</script>

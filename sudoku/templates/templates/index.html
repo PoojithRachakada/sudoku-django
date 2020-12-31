@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+
+<head>
+    <html lang="en" dir="ltr">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home Page</title>
+</head>
+
+<body>
+    <div class="sign">
+        <h1><span class="fast-flicker">S</span>ud<span class="flicker">ok</span>u</h1>
+      </div>
+    <div>
+        <div class="rules">
+            <a style="color:rgb(255, 208, 0);font-size:30px">The Rules of Sudoku:</a>
+            <p>The rules of the game are simple: each of the nine blocks has to contain all the numbers 1-9 within its
+                squares. Each number can only appear once in a row, column or box.</p>
+            <p>The difficulty lies in that each vertical nine-square column, or horizontal nine-square line across,
+                within the larger square, must also contain the numbers 1-9, without repetition or omission.</p>
+        </div>
+        <div class="btn">
+            <p style="color:lime;font-size:50px;">Choose Dificulty Level</p>
+            <a href="{% url 'easy' %}"><button class="button">Easy</button></a>
+            <a href="{% url 'medium' %}"><button class="button">Medium</button></a>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<style>
+    /*h1 {
+        text-align: center;
+        color: aqua;
+        font-size: 70px;
+
+    }*/
+
+    .rules {
+        border:yellow;
+        color:palegoldenrod;
+        background-color:transparent;
+        height: 200px;
+        width: 20%;
+        float: left;
+        background-position: left;
+    }
+    p{
+        font-family: "Lucida Handwriting",Cursive;
+    }
+
+    .btn {
+        float: right;
+        width: 80%;
+        text-align: center;
+    }
+
+
+    body {
+        background-color:black;
+        background-position: center;
+    }
+
+
+
+    .button {
+        min-width: 250px;
+        min-height: 60px;
+        font-family: 'Nunito', sans-serif;
+        font-size: 22px;
+        text-transform: uppercase;
+        letter-spacing: 1.3px;
+        font-weight: 700;
+        color: #313133;
+        background: #4FD1C5;
+        background: linear-gradient(90deg, rgba(129, 230, 217, 1) 0%, rgba(79, 209, 197, 1) 100%);
+        border: none;
+        border-radius: 1000px;
+        box-shadow: 12px 12px 24px rgba(79, 209, 197, .64);
+        transition: all 0.3s ease-in-out 0s;
+        cursor: pointer;
+        outline: none;
+        position: relative;
+        padding: 10px;
+    }
+
+    button::before {
+        content: '';
+        border-radius: 1000px;
+        min-width: calc(300px + 12px);
+        min-height: calc(60px + 12px);
+        border: 6px solid #00FFCB;
+        box-shadow: 0 0 60px rgba(0, 255, 203, .64);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0;
+        transition: all .3s ease-in-out 0s;
+    }
+
+    .button:hover,
+    .button:focus {
+        color: #313133;
+        transform: translateY(-6px);
+    }
+
+    button:hover::before,
+    button:focus::before {
+        opacity: 1;
+    }
+
+    button::after {
+        content: '';
+        width: 30px;
+        height: 30px;
+        border-radius: 100%;
+        border: 6px solid #00FFCB;
+        position: absolute;
+        z-index: -1;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: ring 1.5s infinite;
+    }
+
+    button:hover::after,
+    button:focus::after {
+        animation: none;
+        display: none;
+    }
+
+    @keyframes ring {
+        0% {
+            width: 30px;
+            height: 30px;
+            opacity: 1;
+        }
+
+        100% {
+            width: 300px;
+            height: 300px;
+            opacity: 0;
+        }
+    }
+
+    .sign {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    /*align-items: center;*/
+    width: 50%;
+    height: 50%;
+    background-image: radial-gradient(
+        ellipse 50% 35% at 50% 50%,
+        #6b1839,
+        transparent
+    );
+    transform: translate(-50%, -50%);
+    letter-spacing: 2;
+    left: 50%;
+    top: 50%;
+    font-family: "Clip";
+    text-transform: uppercase;
+    font-size: 6em;
+    color: #ffe6ff;
+    text-shadow: 0 0 0.6rem #ffe6ff, 0 0 1.5rem #ff65bd,
+        -0.2rem 0.1rem 1rem #ff65bd, 0.2rem 0.1rem 1rem #ff65bd,
+        0 -0.5rem 2rem #ff2483, 0 0.5rem 3rem #ff2483;
+    animation: shine 2s forwards, flicker 3s infinite;
+    }
+
+    @keyframes blink {
+    0%,
+    22%,
+    36%,
+    75% {
+        color: #ffe6ff;
+        text-shadow: 0 0 0.6rem #ffe6ff, 0 0 1.5rem #ff65bd,
+        -0.2rem 0.1rem 1rem #ff65bd, 0.2rem 0.1rem 1rem #ff65bd,
+        0 -0.5rem 2rem #ff2483, 0 0.5rem 3rem #ff2483;
+    }
+    28%,
+    33% {
+        color: #ff65bd;
+        text-shadow: none;
+    }
+    82%,
+    97% {
+        color: #ff2483;
+        text-shadow: none;
+    }
+    }
+
+    .flicker {
+    animation: shine 2s forwards, blink 3s 2s infinite;
+    }
+
+    .fast-flicker {
+    animation: shine 2s forwards, blink 10s 1s infinite;
+    }
+
+    @keyframes shine {
+    0% {
+        color: #6b1839;
+        text-shadow: none;
+    }
+    100% {
+        color: #ffe6ff;
+        text-shadow: 0 0 0.6rem #ffe6ff, 0 0 1.5rem #ff65bd,
+        -0.2rem 0.1rem 1rem #ff65bd, 0.2rem 0.1rem 1rem #ff65bd,
+        0 -0.5rem 2rem #ff2483, 0 0.5rem 3rem #ff2483;
+    }
+    }
+
+    @keyframes flicker {
+    from {
+        opacity: 1;
+    }
+
+    4% {
+        opacity: 0.9;
+    }
+
+    6% {
+        opacity: 0.85;
+    }
+
+    8% {
+        opacity: 0.95;
+    }
+
+    10% {
+        opacity: 0.9;
+    }
+
+    11% {
+        opacity: 0.922;
+    }
+
+    12% {
+        opacity: 0.9;
+    }
+
+    14% {
+        opacity: 0.95;
+    }
+
+    16% {
+        opacity: 0.98;
+    }
+
+    17% {
+        opacity: 0.9;
+    }
+
+    19% {
+        opacity: 0.93;
+    }
+
+    20% {
+        opacity: 0.99;
+    }
+
+    24% {
+        opacity: 1;
+    }
+
+    26% {
+        opacity: 0.94;
+    }
+
+    28% {
+        opacity: 0.98;
+    }
+
+    37% {
+        opacity: 0.93;
+    }
+
+    }
+
+</style>
