@@ -22,4 +22,5 @@ urlpatterns = [
     path("", views.home, name="index"),
     path("easy", views.easy, name="easy"),
     path("medium", views.medium, name="medium"),
+    path("getter", views.get_list, name="getter"),
 ]
