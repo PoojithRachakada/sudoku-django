@@ -1,43 +1,135 @@
 <html>
-    <body>
 
-        <h1>Game Page</h1>
-        <h2><time>00:00:00</time></h2>
-        <div class="hello">
-            <script>
-                var arr = {{ list }};
-                var tot = [];
-                var cou = 0;
-                for (var i = 0; i < 9; i++) {
-                    var temp = [];
-                    for (var j = 0; j < 9; j++) {
-                        temp.push(arr[cou]);
-                        cou++;
+<body>
+
+    <h1>Game Page</h1>
+    <h2><time>00:00:00</time></h2>
+    <div class="hello">
+        <script>
+            var arr = {{ list }};
+
+            var tot = [];
+
+            var cou = 0;
+            for (var i = 0; i < 9; i++) {
+                var temp = [];
+                for (var j = 0; j < 9; j++) {
+                    temp.push(arr[cou]);
+                    cou++;
+                }
+                tot.push(temp);
+            }
+
+            document.write("<table>");
+            for (var i = 1; i < 10; i++) {
+                document.write("<tr>")
+                for (var j = 1; j < 10; j++) {
+                    if (tot[i - 1][j - 1] == 0) {
+
+                        var q = i.toString() + j.toString();
+                        document.write('<td> <input type="number" id="' + q + '"oninput="checker(' + q + ')"> </td>');
+                        //document.write("<td> <input type='number' id='" + k + "' oninput='checker(" + k + ")'> </td>");
+
                     }
-                    tot.push(temp);
+                    else {
+                        document.write("<td>" + tot[i - 1][j - 1] + "</td>");
+                    }
+                }
+                document.write("</tr>")
+            }
+            document.write("</table>");
+
+            function checkrow(x, y, data) {
+                for (var i = 0; i < 9; i++) {
+                    if (tot[i][y] == data) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+            function checkcol(x, y, data) {
+                for (var i = 0; i < 9; i++) {
+                    if (tot[x][i] == data) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+            function valid(data) {
+                if ((0 < data) && (data < 10)) {
+                    return true;
+                }
+                return false;
+            }
+
+            function checker(para) {
+                var data = document.getElementById(para).value;
+
+                var ind = parseInt(para);
+                var y = ind % 10;
+                ind /= 10;
+                ind = Math.floor(ind);
+                var x = ind;
+
+                y -= 1;
+                x -= 1
+
+                if (data == "") {
+                    document.getElementById(para).style.backgroundColor = "white";
+                    return;
                 }
 
-                document.write("<table>");
-                for (var i = 0; i < 9; i++) {
-                    document.write("<tr>")
-                    for (var j = 0; j < 9; j++) {
-                        if (tot[i][j] == 0) {
-                            document.write("<td> <input type='number'> </td>");
-                        }
-                        else {
-                            document.write("<td>" + tot[i][j] + "</td>");
-                        }
+                if (valid(data)) {
+                    tot[x][y] = 0;
+                    if (checkrow(x, y, data) && checkcol(x, y, data)) {
+                        document.getElementById(para).style.backgroundColor = "green";
+                        tot[x][y] = data;
                     }
-                    document.write("</tr>")
-                }
-                document.write("</table>");
+                    else {
+                        document.getElementById(para).style.backgroundColor = "red";
+                        console.log("wrong  answer")
+                    }
 
-            </script>
-        </div>
-        <div class="reset">
-            <a  href="{% url 'index'%}"><button class="rainbow rainbow-3" id="stop">stop</button></a>
-        </div>
-    </body>
+                }
+                else {
+                    alert("This is not a valid input in the grid")
+                    document.getElementById(para).value = "";
+                    document.getElementById(para).style.backgroundColor = "white";
+                    console.log("invalid  answer")
+                }
+            }
+
+            function grab_selected() {
+                var tasks = [];
+                for (var i = 0; i < 10; i++) {
+                    for (var j = 0; j < 10; j++) {
+                        tasks.push(tot[i][j]);
+                    }
+                }
+                return tasks;
+            }
+
+            $('.reset').find('#stop').on('click', function () {
+                var tasks = grab_selected();
+                console.log(tasks);
+                $.ajax({
+                    type: 'POST',
+                    url: '/edit_lists/',
+                    data: { 'tasks[]': tasks },
+                });
+            });
+
+
+
+        </script>
+    </div>
+    <div class="reset">
+        <button class="rainbow rainbow-3" id="stop">Submit</button></a>
+    </div>
+</body>
+
 </html>
 <style>
     body {
@@ -91,31 +183,30 @@
         size: 5;
     }
 
-    .reset{
+    .reset {
         padding-left: 50%;
     }
-    
-    .rainbow{
+
+    .rainbow {
         font-size: 25px;
         background-color: #343A40;
-        border-radius: 4px;  
+        border-radius: 4px;
         color: #fff;
         cursor: pointer;
         padding: 8px 16px;
-        
-        }
 
-    .rainbow-3:hover{
+    }
+
+    .rainbow-3:hover {
         background-image: linear-gradient(to right, red, orange, yellow, green, blue, indigo, red);
-        animation:slidebg 2s linear infinite;
-        }
+        animation: slidebg 2s linear infinite;
+    }
 
     @keyframes slidebg {
-    to {
-        background-position:20vw;
+        to {
+            background-position: 20vw;
+        }
     }
-    }
-    
 </style>
 
 
