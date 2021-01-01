@@ -12,4 +12,4 @@ Sudoku
 ![alt text](https://github.com/PoojithRachakada/sudoku-django/blob/main/images/sudoku1.png)
 ![alt text](https://github.com/PoojithRachakada/sudoku-django/blob/main/images/wishes.png)
 ![alt text](https://github.com/PoojithRachakada/sudoku-django/blob/main/images/solution.png)
-## **Languages Used**
+
