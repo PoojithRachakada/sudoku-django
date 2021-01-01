@@ -159,7 +159,9 @@ def question(board):
         qs[i][j] = board[i][j]
 
     return qs
-
+def valid(arr):
+    sudokuobj = Sudoku()
+    return sudokuobj.IsValidSudoku(arr)
 
 def all():
     board = [[0] * 9 for i in range(9)]
