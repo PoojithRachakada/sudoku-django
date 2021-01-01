@@ -7,3 +7,8 @@ Sudoku
 ## **Contributers**
 * [Manoj Raavi](https://github.com/RaaviManoj)
 * [Poojith Rachakada](https://github.com/PoojithRachakada)
+## **Screenshot**
+![alt text](https://github.com/PoojithRachakada/sudoku-django/blob/main/images/homepage.png)
+![alt text](https://github.com/PoojithRachakada/sudoku-django/blob/main/images/sudoku1.png)
+![alt text](https://github.com/PoojithRachakada/sudoku-django/blob/main/images/wishes.png)
+![alt text](https://github.com/PoojithRachakada/sudoku-django/blob/main/images/solution.png)
