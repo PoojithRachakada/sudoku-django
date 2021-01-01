@@ -127,16 +127,7 @@
                 }
 
                 if (valid(data)) {
-                    tot[x][y] = 0;
-                    if (checkrow(x, y, data) && checkcol(x, y, data) && checkgrid(x, y, data)) {
-                        document.getElementById(para).style.backgroundColor = "#739900";
-                        tot[x][y] = data;
-                    }
-                    else {
-                        document.getElementById(para).style.backgroundColor = "#ff3333";
-                        console.log("wrong  answer")
-                    }
-
+                    tot[x][y] = data;
                 }
                 else {
                     alert("This is not a valid input in the grid")
@@ -173,7 +164,7 @@
             </form>
         </div>
         <div class="but">
-            <a href="{%url 'easy'%}"><button class="button">Refresh</button></a>
+            <a href="{%url 'hard'%}"><button class="button">Refresh</button></a>
             <button class="button" onclick="resetter()">reset</button>
             <a href="{%url 'showsol'%}"><button class="button">Veiw solution</button></a>
         </div>
