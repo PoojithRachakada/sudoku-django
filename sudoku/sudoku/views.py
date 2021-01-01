@@ -15,6 +15,10 @@ def handler404(request):
 def home(request):
     return render(request, "index.html")
 
+def get_list(request):
+    tasks = request.POST.get("array", False)
+    print(tasks)
+    return render(request,"index.html")
 
 
 
