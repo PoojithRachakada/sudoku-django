@@ -12,4 +12,4 @@ Sudoku
 ![alt text](https://github.com/PoojithRachakada/sudoku-django/blob/main/images/sudoku1.png)
 ![alt text](https://github.com/PoojithRachakada/sudoku-django/blob/main/images/wishes.png)
 ![alt text](https://github.com/PoojithRachakada/sudoku-django/blob/main/images/solution.png)
-![Codeship Status](https://app.codeship.com/projects/21dd0769-6705-4f85-a603-2294b36ef983/status?branch=master)
+![Codeship Status](https://app.codeship.com/projects/2c49f165-6bed-4416-ab54-482036f5940b/status?branch=master)
