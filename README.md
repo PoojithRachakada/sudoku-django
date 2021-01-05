@@ -1,5 +1,7 @@
 # **Project**
 Sudoku
+## **GitHub license**
+[![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/Naereen/StrapDown.js/blob/master/LICENSE)
 ## **Installation Steps**
 *1)First downlaod python and set path in Environmental variable.</br>2)Install Django latest version.</br>3)Download this repository directly into local system.*
 ## **How To Run**
